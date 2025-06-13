@@ -1,11 +1,31 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import { Sidebar } from "@/components/Sidebar";
+import { Topbar } from "@/components/Topbar";
+import { JenkinsPanel } from "@/components/JenkinsPanel";
 
 const Index = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <div className="min-h-screen bg-background">
+      <div className="flex">
+        {/* Sidebar */}
+        <Sidebar isOpen={sidebarOpen} onToggle={toggleSidebar} />
+        
+        {/* Main content */}
+        <div className="flex-1 md:ml-64">
+          {/* Topbar */}
+          <Topbar onMenuToggle={toggleSidebar} />
+          
+          {/* Page content */}
+          <main className="min-h-[calc(100vh-4rem)]">
+            <JenkinsPanel />
+          </main>
+        </div>
       </div>
     </div>
   );
